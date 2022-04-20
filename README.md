@@ -10,3 +10,6 @@ You can get them from Cirium by signing up.
 
 To start the server, run this command:  
 npm start 
+
+Then go to:   
+localhost:3000
