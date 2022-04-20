@@ -1,0 +1,21 @@
+extends layout
+
+block main
+  .container.first
+    .topSearchBox.leftSearchBox.corner
+    .topSearchBox.rightSearchBox.corner
+    .bottomSearchBox.leftSearchBox.corner
+    .bottomSearchBox.rightSearchBox.corner
+    .spacer
+      form(action=`/flight` method="post")
+        h3 Search by Route:
+        input(type='text' name='origin'  placeholder="Origin (IATA/ICAO/FS)" required="true")
+        input(type='text' name='destination'  placeholder="Destination (IATA/ICAO/FS)" required="true")
+        input(name="departureDate" 
+              type='text' 
+              onfocus="(this.type='date')" 
+              placeholder='Select departure date'
+              required="true"
+              )
+        button.search_button(formaction=`/flight` formmethod='post')
+          i.fa.fa-search

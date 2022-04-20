@@ -1,0 +1,120 @@
+extends layout
+
+block main              
+  .cards
+    .destination
+      .from
+        h1=routeData.origin.toUpperCase()
+        h6=routeData.originLocationName
+      .center
+        i.material-icons flight_takeoff
+      .to
+        h1=routeData.destination.toUpperCase()
+        h6=routeData.destinationLocationName
+    each flight in flights
+
+      .card
+        .card__image-holder
+          .container.first
+            .details
+              .left-side
+                h3 Flight ID:
+                h4 
+                  span=flight.flightId || 'Unknown'
+                h5 Departure:
+                  br
+                  span=`${flight.departureDate.dateUtc.split('T')[0]}` || 'Unknown'
+                  small=` ${flight.departureDate.dateUtc.split('T')[1]}` || 'Unknown'
+                h5 Departure Gate: 
+                  br
+                  span=flight.airportResources.departureGate || 'Unknown'
+                h5 Airline:
+                  br
+                  span= flight.airline || 'Unknown'
+              .right-side
+                h3 Flight #:
+                h4 
+                  span=flight.flightNumber || 'Unknown'
+                h5
+                  | Arrival:
+                  br
+                  span=flight.arrivalDate.dateUtc.split('T')[0] || 'Unknown'
+                  small=` ${flight.arrivalDate.dateUtc.split('T')[1]}` || 'Unknown'
+                h5 
+                  | Arrival Gate: 
+                  br
+                  span=flight.airportResources.arrivalGate || 'Unknown'
+                h5 
+                  | Status: 
+                  br
+                  span=flight.status || 'Unknown'                  
+        .card-title
+          a.toggle-info.btn(href='#')
+            span.left
+            span.right
+          h3=`Plane:`
+          small=flight.airplaneInfo.name || 'Unknown'
+        .card-flap.flap1
+          .card-description
+            h3 Iata Code:
+            h4 
+              span=flight.airplaneInfo.iata
+            h3 Wide-body:
+            h4 
+              span=flight.airplaneInfo.widebody
+            h3 Turboprop engine:
+            h4 
+              span=flight.airplaneInfo.turboProp
+            h3 Jet engine:
+            h4 
+              span=flight.airplaneInfo.jet
+          //- .card-flap.flap2
+          //-   .card-actions
+          //-     a.btn(href='#') Read more
+
+  script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js')
+  script.
+    $(document).ready(function(){
+      var zindex = 10;
+      
+      $("div.card").click(function(e){
+        e.preventDefault();
+
+        var isShowing = false;
+
+        if ($(this).hasClass("show")) {
+          isShowing = true
+        }
+
+        if ($("div.cards").hasClass("showing")) {
+          // a card is already in view
+          $("div.card.show")
+            .removeClass("show");
+
+          if (isShowing) {
+            // this card was showing - reset the grid
+            $("div.cards")
+              .removeClass("showing");
+          } else {
+            // this card isn't showing - get in with it
+            $(this)
+              .css({zIndex: zindex})
+              .addClass("show");
+
+          }
+
+          zindex++;
+
+        } else {
+          // no cards in view
+          $("div.cards")
+            .addClass("showing");
+          $(this)
+            .css({zIndex:zindex})
+            .addClass("show");
+
+          zindex++;
+        }
+        
+      });
+    });
