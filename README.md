@@ -1,12 +1,12 @@
 # flight-tracker  
 
-Run npm install  
+Run npm install command  
 
-create a .env file:  
+Create a .env file in main directory with the following:  
   APP_ID='idhere'
   APP_KEY='keyhere'
 
 You can get them from Cirium by signing up.   
 
-To start run this command:  
+To start the server, run this command:  
 npm start 
